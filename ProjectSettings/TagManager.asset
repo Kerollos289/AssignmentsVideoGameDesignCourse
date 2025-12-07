@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collectible
+  - Enemy
+  - Coin
+  - Key
+  - HealthPickup
+  - SpeedPowerUp
   layers:
   - Default
   - TransparentFX

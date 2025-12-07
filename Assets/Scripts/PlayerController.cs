@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    public bool hasKey = false;
     public bool canControl = true;
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -64,12 +65,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Collectible"))
+        if (other.CompareTag("Coin"))
         {
-            // Optional: play sound or add score here
-            Debug.Log("Collected: " + other.name);
-
-            Destroy(other.gameObject); // remove the collectible
+            Destroy(other.gameObject);
+            // increase coins UI
+        }
+        else if (other.CompareTag("Key"))
+        {
+            hasKey = true;
+            Destroy(other.gameObject);
+            UIManager.instance.UpdateObjective("Find the door!");
+            // update UI objective
+        }
+        else if (other.CompareTag("Collectible"))
+        {
+            GetComponent<PlayerHealth>().Heal();
+            Destroy(other.gameObject);
         }
     }
 
